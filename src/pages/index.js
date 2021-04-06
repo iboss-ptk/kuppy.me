@@ -1,10 +1,8 @@
 import React, { useState } from "react"
-import { graphql, Link, useStaticQuery } from "gatsby"
 import '@fontsource/montserrat'
 
 import Image from "../components/image"
 import SEO from "../components/seo"
-import Layout from "../components/layout"
 
 const IndexPage = () => {
   const [activeCategory, setActiveCategory] = useState('all')
@@ -15,6 +13,12 @@ const IndexPage = () => {
       className={(category === activeCategory ? 'font-bold' : '') + ' cursor-pointer'}>
       {category}
     </span>
+  )
+
+  const ContactMe = () => (
+    <button className="bg-brown-dark hover:opacity-75 text-white rounded-3xl py-2 px-4">
+      Contact me
+    </button>
   )
 
   return (
@@ -31,19 +35,18 @@ const IndexPage = () => {
             Vivamus sed arcu quis risus congue viverra sit amet nec quam.
             Sed aliquam pellentesque scelerisque
           </div>
-          <button className="bg-brown-dark hover:opacity-75 text-white rounded-3xl py-2 px-4">
-            Contact me
-        </button>
+          <ContactMe />
         </div>
       </div>
 
       <div className="w-screen flex flex-col items-center justify-between p-14">
-        <div className="space-x-4">
+        <div className="space-y-2 md:space-y-0 md:space-x-4 flex flex-col md:flex-row text-center">
           <CategorySelector category='all' />
           <CategorySelector category='paper' />
           <CategorySelector category='digital' />
           <CategorySelector category='other' />
         </div>
+
       </div>
     </div>
   )
