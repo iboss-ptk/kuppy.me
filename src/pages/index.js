@@ -1,22 +1,33 @@
 import React from "react"
-import { Link } from "gatsby"
+import { graphql, Link, useStaticQuery } from "gatsby"
+import '@fontsource/montserrat'
 
-import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
+import Layout from "../components/layout"
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
+const IndexPage = () => {
+  return (
+    <div className="font-base">
+      <SEO title="Home" />
+      <div className="bg-brown h-192 w-screen flex flex-col items-center justify-between p-14">
+        <div className="">LOGO</div>
+        <div className="max-w-3xl text-center space-y-6">
+          <div>
+            Paragraph of kuppy bio
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Nunc vestibulum laoreet diam vitae aliquet. Mauris nibh mi, cursus ac dolor ut,
+            euismod dignissim erat. Nullam tincidunt erat eu sapien venenatis placerat.
+            Vivamus sed arcu quis risus congue viverra sit amet nec quam.
+            Sed aliquam pellentesque scelerisque
+          </div>
+          <button className="bg-brown-dark hover:opacity-75 text-white rounded-3xl py-2 px-4">
+            Contact me
+        </button>
+        </div>
+      </div>
     </div>
-    <Link to="/page-2/">Go to page 2</Link>
-    <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-  </Layout>
-)
+  )
+}
 
 export default IndexPage
