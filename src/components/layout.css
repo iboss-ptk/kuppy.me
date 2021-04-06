@@ -16,5 +16,12 @@ a {
   @apply text-blue-600;
 }
 
+@screen md {
+  .masonry {
+    column-count: 3;
+    column-gap: 1rem;
+  }  
+}
+
 @tailwind components;
 @tailwind utilities;
