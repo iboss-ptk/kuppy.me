@@ -1,8 +1,9 @@
 import React, { useState } from "react"
 import '@fontsource/montserrat'
 
-import Image from "../components/image"
+// import Image from "../components/image"
 import SEO from "../components/seo"
+import { graphql, useStaticQuery } from "gatsby";
 
 const Card = ({ src, title }) => (
   <div className="relative cursor-pointer transition transform">
@@ -19,58 +20,31 @@ const Card = ({ src, title }) => (
   </div>
 );
 
-const images = [
-  {
-    title: "Photo title",
-    category: 'digital',
-    img:
-      "https://images.unsplash.com/photo-1536431311719-398b6704d4cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
-  },
-  {
-    title: "Photo title",
-    category: 'paper',
-    img:
-      "https://images.unsplash.com/photo-1510797215324-95aa89f43c33?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
-  },
-  {
-    title: "Photo title",
-    img:
-      "https://images.unsplash.com/photo-1543297031-d102cd432d54?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
-  },
-  {
-    title: "Photo title",
-    category: 'digital',
-    img:
-      "https://images.unsplash.com/photo-1469474968028-56623f02e42e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
-  },
-  {
-    title: "Photo title",
-    img:
-      "https://images.unsplash.com/photo-1492724724894-7464c27d0ceb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
-  },
-  {
-    title: "Photo title",
-    img:
-      "https://images.unsplash.com/photo-1500534623283-312aade485b7?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
-  },
-  {
-    title: "Photo title",
-    img:
-      "https://images.unsplash.com/reserve/HgZuGu3gSD6db21T3lxm_San%20Zenone.jpg?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
-  },
-  {
-    title: "Photo title",
-    img:
-      "https://images.unsplash.com/photo-1444464666168-49d633b86797?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
-  },
-  {
-    title: "Photo title",
-    img:
-      "https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60"
-  }
-];
-
 const IndexPage = () => {
+
+  const works = useStaticQuery(graphql`
+    query WorksQuery {
+      allContentfulWork {
+        edges {
+          node {
+            id
+            category
+            title
+            image {
+              file {
+                url
+              }
+            }
+          }
+        }
+      }
+    }
+  `).allContentfulWork
+  .edges
+  .map(e => e.node)
+
+  console.log(works)
+
   const [activeCategory, setActiveCategory] = useState('all')
 
   const CategorySelector = ({ category }) => (
@@ -127,14 +101,14 @@ const IndexPage = () => {
         </div>
 
         <div className="masonry px-0 md:px-16 py-8 mb-10">
-          {images
-            .filter(img => ({
+          {works
+            .filter(work => ({
               'all': true,
-              'other': img.category == null
-            }[activeCategory] || activeCategory == img.category))
-            .map(item => (
-              <div className="overflow-hidden mb-4" key={item.img}>
-                <Card src={item.img} title={item.title} />
+              'other': work.category === null
+            }[activeCategory] || activeCategory === work.category))
+            .map(work => (
+              <div className="overflow-hidden mb-4" key={work.id}>
+                <Card src={work.image.file.url} title={work.title} />
               </div>
             ))}
         </div>
