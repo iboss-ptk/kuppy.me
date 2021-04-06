@@ -5,7 +5,7 @@ import Image from "../components/image"
 import SEO from "../components/seo"
 
 const Card = ({ src, title }) => (
-  <div className="relative cursor-pointer">
+  <div className="relative cursor-pointer transition transform">
     <img src={src} />
     <style jsx>{`
       .overlay {
@@ -87,6 +87,19 @@ const IndexPage = () => {
     </button>
   )
 
+  const BackToTop = () => (
+    <button className="bg-brown-medium hover:opacity-75 text-white rounded-3xl py-2 px-4"
+      onClick={() => {
+        window.scroll({
+          top: 0,
+          left: 0,
+          behavior: 'smooth'
+        });
+      }}>
+      Back to top
+    </button>
+  )
+
   return (
     <div className="font-base">
       <SEO title="Home" />
@@ -113,18 +126,32 @@ const IndexPage = () => {
           <CategorySelector category='other' />
         </div>
 
-        <div className="masonry px-16 py-8">
+        <div className="masonry px-0 md:px-16 py-8 mb-10">
           {images
-          .filter(img => ({
-            'all': true,
-            'other': img.category == null
-          }[activeCategory] || activeCategory == img.category))
-          .map(item => (
-            <div className="overflow-hidden mb-4" key={item.img}>
-              <Card src={item.img} title={item.title} />
-            </div>
-          ))}
+            .filter(img => ({
+              'all': true,
+              'other': img.category == null
+            }[activeCategory] || activeCategory == img.category))
+            .map(item => (
+              <div className="overflow-hidden mb-4" key={item.img}>
+                <Card src={item.img} title={item.title} />
+              </div>
+            ))}
         </div>
+
+        <BackToTop />
+
+      </div>
+
+
+      <div className="text-center p-5 mb-10 flex flex-col items-center">
+
+        <div className="bg-brown-dark w-24 h-0.5 m-14"></div>
+
+        <h1 className="p-10">Contact me</h1>
+        <span>contact me information</span>
+        <span>contact me information</span>
+        <span>contact me information</span>
       </div>
     </div>
   )
