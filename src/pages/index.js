@@ -8,11 +8,6 @@ import { graphql, useStaticQuery } from "gatsby";
 const Card = ({ src, title }) => (
   <div className="relative cursor-pointer transition transform">
     <img src={src} />
-    <style jsx>{`
-      .overlay {
-        background: linear-gradient(0deg, black, transparent);
-      }
-    `}</style>
     <div className="overlay absolute bottom-0 w-full h-24 px-4 pt-6">
       {/* <div className="text-white text-lg">{title}</div> */}
       {/* <div className="text-gray-400 text-sm">Photographer</div> */}
