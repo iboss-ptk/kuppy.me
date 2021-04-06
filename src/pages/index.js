@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { graphql, Link, useStaticQuery } from "gatsby"
 import '@fontsource/montserrat'
 
@@ -7,6 +7,16 @@ import SEO from "../components/seo"
 import Layout from "../components/layout"
 
 const IndexPage = () => {
+  const [activeCategory, setActiveCategory] = useState('all')
+
+  const CategorySelector = ({ category }) => (
+    <span
+      onClick={() => setActiveCategory(category)}
+      className={(category === activeCategory ? 'font-bold' : '') + ' cursor-pointer'}>
+      {category}
+    </span>
+  )
+
   return (
     <div className="font-base">
       <SEO title="Home" />
@@ -24,6 +34,15 @@ const IndexPage = () => {
           <button className="bg-brown-dark hover:opacity-75 text-white rounded-3xl py-2 px-4">
             Contact me
         </button>
+        </div>
+      </div>
+
+      <div className="w-screen flex flex-col items-center justify-between p-14">
+        <div className="space-x-4">
+          <CategorySelector category='all' />
+          <CategorySelector category='paper' />
+          <CategorySelector category='digital' />
+          <CategorySelector category='other' />
         </div>
       </div>
     </div>
